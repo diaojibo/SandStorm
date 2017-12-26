@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 
-namespace SandStorm{
+namespace sandstorm{
     namespace base{
         typedef std::vector<std::string> Fields;
     }

@@ -10,7 +10,7 @@
 #include <initializer_list>
 #include <iostream>
 
-namespace SandStorm {
+namespace sandstorm {
     namespace base {
         class TypeMismatchException : std::exception {
         public:

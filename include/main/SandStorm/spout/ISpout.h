@@ -6,7 +6,7 @@
 
 #include "../base/ITask.h"
 
-namespace SandStorm {
+namespace sandstorm {
     namespace base {
         class OutputCollector;
     }

@@ -3,7 +3,7 @@
 #include "Fields.h"
 
 
-namespace SandStorm {
+namespace sandstorm {
     namespace base {
         class ITask {
         public:

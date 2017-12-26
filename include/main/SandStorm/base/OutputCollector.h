@@ -7,7 +7,7 @@
 #include "Values.h"
 #include "../message/SupervisorCommander.h"
 
-namespace SandStorm {
+namespace sandstorm {
     namespace topology {
         class ITopology;
     }
@@ -28,7 +28,7 @@ namespace SandStorm {
 
             virtual void Emit(const Values &values);
 
-            void SetCommander(SandStorm::messgae::SupervisorCommander *commander) {
+            void SetCommander(sandstorm::messgae::SupervisorCommander *commander) {
                 if (_commander) {
                     delete _commander;
                 }
@@ -55,7 +55,7 @@ namespace SandStorm {
             int _strategy;
             int _taskIndex;
             int _groupField;
-            SandStorm::message::ManagerCommander *_commander;
+            sandstorm::message::ManagerCommander *_commander;
         };
     }
 
