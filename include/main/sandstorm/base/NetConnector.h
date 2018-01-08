@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "NetAddress.h"
+#include "sandstorm/base/NetAddress.h"
 #include "Meshy.h"
 
 #include <cstdint>

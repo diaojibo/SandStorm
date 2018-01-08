@@ -10,7 +10,7 @@
 #include <dlfcn.h>
 #endif
 
-#include "ITopology.h"
+#include "sandstorm/topology/ITopology.h"
 
 using sandstorm::topology::ITopology
 

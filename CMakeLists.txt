@@ -4,4 +4,6 @@ project(SandStorm)
 set(CMAKE_CXX_STANDARD 11)
 
 
-include_directories(./include/main/)
+include_directories(./include/main)
+
+add_executable(nimbus ./src/main/sandstorm/NimbusLauncher.cpp)

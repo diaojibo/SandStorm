@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../base/ITask.h"
+#include "sandstorm/base/ITask.h"
 
 namespace SandStorm {
     namespace base {

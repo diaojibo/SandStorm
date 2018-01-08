@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "../base/Executor.h"
-#include "IBolt.h"
-#include "../base/Values.h"
+#include "sandstorm/base/Executor.h"
+#include "sandstorm/bolt/IBolt.h"
+#include "sandstorm/base/Values.h"
 
 namespace sandstorm{
     namespace topology{

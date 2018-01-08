@@ -6,7 +6,7 @@
 
 #include <string>
 #include <ctime>
-#include "NetAddress.h"
+#include "sandstorm/base/NetAddress.h"
 
 namespace sandstorm {
     namespace base {

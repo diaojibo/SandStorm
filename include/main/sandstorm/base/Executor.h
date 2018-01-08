@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "ITask.h"
+#include "sandstorm/base/ITask.h"
 #include "../message/MessageLoop.h"
 
 #include <thread>

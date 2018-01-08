@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "Values.h"
-#include "../message/SupervisorCommander.h"
+#include "sandstorm/base/Values.h"
+#include "sandstorm/message/SupervisorCommander.h"
 
 namespace sandstorm {
     namespace topology {
@@ -55,7 +55,7 @@ namespace sandstorm {
             int _strategy;
             int _taskIndex;
             int _groupField;
-            sandstorm::message::ManagerCommander *_commander;
+            sandstorm::message::SupervisorCommander *_commander;
         };
     }
 

@@ -4,8 +4,8 @@
 
 # pragma once
 
-#include "../base/Executor.h"
-#include "ISpout.h"
+#include "sandstorm/base/Executor.h"
+#include "sandstorm/spout/ISpout.h"
 
 #include <iostream>
 
