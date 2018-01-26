@@ -4,6 +4,7 @@
 
 #pragma once
 
+
 namespace sandstorm {
     namespace network {
         class Loop {

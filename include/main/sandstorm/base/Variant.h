@@ -10,8 +10,11 @@
 #include <map>
 #include <vector>
 
+
+
 namespace sandstorm {
     namespace base {
+
         class Variant {
         public:
             enum class Type {

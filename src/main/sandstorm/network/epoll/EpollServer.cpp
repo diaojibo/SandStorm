@@ -76,6 +76,8 @@ namespace sandstorm {
             EpollLoop::Get()->AddServer(listenfd, this);
         }
 
+
+        //sockfd is the file discription created by epoll
         EpollConnectionPtr EpollServer::Accept(int32_t sockfd) {
             int32_t conn_sock = 0;
             int32_t addrlen = 0;

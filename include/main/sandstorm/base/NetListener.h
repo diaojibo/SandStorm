@@ -5,8 +5,8 @@
 #pragma once
 
 #include "NetAddress.h"
-#include "net.h"
-#include "Meshy.h"
+#include "sandstorm/network/Net.h"
+#include "sandstorm/network/Network.h"
 
 #include <vector>
 #include <iostream>
@@ -16,12 +16,9 @@
 #include <functional>
 #include <cstdint>
 
-typedef std::function<
-void(meshy::TcpStream
-* connection,
-const char *buffer, int32_t
-size)>
-DataReceiver;
+
+typedef std::function<void(sandstorm::network::TcpStream *connection, const char *buffer, int32_t size)> DataReceiver;
+
 
 class NetListener {
 public:
@@ -29,11 +26,11 @@ public:
 
     }
 
-    const sandstorm::base::NetAddress& GetHost const {
+    const sandstorm::base::NetAddress &GetHost const {
         return _host;
     }
 
-    void SetHost(const sandstorm::base::NetAddress& host){
+    void SetHost(const sandstorm::base::NetAddress &host) {
         _host = host;
     }
 
@@ -41,7 +38,7 @@ public:
 
     void DataThreadMain(std::shared_ptr<TcpConnection> connection);
 
-    void OnData(DataReceiver receiver){
+    void OnData(DataReceiver receiver) {
         _receiver = receiver;
     }
 
@@ -49,5 +46,5 @@ public:
 private:
     sandstorm::base::NetAddress _host;
     DataReceiver _receiver;
-    meshy::TcpServer _server;
+    sandstorm::network::TcpServer _server;
 };

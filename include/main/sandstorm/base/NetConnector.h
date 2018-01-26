@@ -5,7 +5,7 @@
 #pragma once
 
 #include "sandstorm/base/NetAddress.h"
-#include "Meshy.h"
+#include "sandstorm/network/Network.h"
 
 #include <cstdint>
 #include <memory>
@@ -17,20 +17,20 @@ public:
 
     }
 
-    const sandstorm::base::NetAddress& GetHost const {
+    const sandstorm::base::NetAddress &GetHost const {
         return _host;
     }
 
-    void SetHost(const sandstorm::base::NetAddress& host){
+    void SetHost(const sandstorm::base::NetAddress &host) {
         _host = host;
     }
 
     void Connect();
 
-    int32_t SendAndReceive(const char* buffer,int32_t size,char* resultBuffer,int32_t resultSize);
+    int32_t SendAndReceive(const char *buffer, int32_t size, char *resultBuffer, int32_t resultSize);
 
 
 private:
     sandstorm::base::NetAddress _host;
-    std::shared_ptr <TcpClient> _client;
+    std::shared_ptr<sandstorm::network::TcpClient> _client;
 };

@@ -4,11 +4,7 @@
 
 #pragma once
 
-#ifdef OS_WIN32
-#include <Windows.h>
-#elif (defined(OS_LINUX))
 #include <dlfcn.h>
-#endif
 
 #include "sandstorm/topology/ITopology.h"
 
@@ -16,20 +12,6 @@ using sandstorm::topology::ITopology
 
 namespace sandstorm {
     namespace base {
-#ifdef OS_WIN32
-        ITopology *LoadTopology(const std::string &fileName) {
-            HINSTANCE hInstance = LoadLibrary(fileName.c_str());
-
-            typedef ITopology *(TopologyGetter)();
-
-            TopologyGetter GetTopology = (TopologyGetter) GetProcAddress(hInstance, "GetTopology");
-
-            ITopology *topology = GetTopology();
-
-            return topology;
-        }
-
-#elif (defined(OS_LINUX))
         ITopology *LoadTopology(const std::string &fileName) {
             //define a file pointer
             void *libm_handle = NULL;
@@ -62,6 +44,5 @@ namespace sandstorm {
 
             return topology;
         }
-#endif
     }
 }

@@ -12,6 +12,8 @@
 
 namespace sandstorm {
     namespace base {
+        class Variant;
+
         class TypeMismatchException : std::exception {
         public:
             TypeMismatchException(const std::string &message) :
@@ -154,7 +156,7 @@ namespace sandstorm {
         public:
             Values() = default;
 
-            Values(std::initializer_list <Value> values) : std::vector<Value>(values) {
+            Values(std::initializer_list<Value> values) : std::vector<Value>(values) {
 
             }
 
