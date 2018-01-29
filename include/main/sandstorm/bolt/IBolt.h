@@ -4,7 +4,8 @@
 
 #pragma once
 
-#include "sandstorm/base/ITask.h"
+#include "sandstorm/task/ITask.h"
+#include "sandstorm/base/Values.h"
 
 namespace SandStorm {
     namespace base {
@@ -14,15 +15,12 @@ namespace SandStorm {
     }
 
     namespace bolt {
-        class IBolt : public base::ITask {
+        class IBolt : public sandstorm::task::ITask {
         public:
-            virtual void Prepare(base::OutputCollector &outputCollector) = 0;
 
-            virtual void CleanUp()=0;
+            virtual IBolt *Clone() = 0;
 
-            virtual void Execute(const base::Values &values)=0;
-
-            virtual IBolt *clone() const = 0;
+            virtual void Execute(const sandstorm::base::Tuple &tuple) = 0;
         };
     }
 }

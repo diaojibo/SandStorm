@@ -88,10 +88,13 @@ namespace sandstorm {
             }
         }
 
+        // eventfd is fd created by epoll_create
         void EpollLoop::_HandleEvent(int32_t eventfd, struct epoll_event *events, int32_t nfds) {
 
             for (int32_t i = 0; i < nfds; ++i) {
                 int32_t fd;
+
+                //The fd that is ready to read/write
                 fd = events[i].data.fd;
 
                 //The event is from a server listen
@@ -124,13 +127,18 @@ namespace sandstorm {
             }
         }
 
+
+        //eventfd is fd created by epoll_create(_eventfd)
         void EpollLoop::_Read(int32_t eventfd, int32_t fd, uint32_t events) {
             EpollStreamPtr stream = _stream[fd];
 
             char buffer[BUFSIZ];
             int32_t readSize;
+
+            //read the data from connection fd to buffer
             int32_t nread = stream->Receive(buffer, BUFSIZ, readSize);
 
+            //events indicate the event type(read or write)
             stream->SetEvents(events);
 
             if ((nread == -1 && errno != EAGAIN) || readSize == 0) {
@@ -139,12 +147,17 @@ namespace sandstorm {
                 return;
             }
 
+            //handle the data
             _Enqueue(stream, buffer, readSize);
 
         }
 
         void EpollLoop::_Enqueue(EpollStreamPtr connection, const char *buf, int64_t nread) {
+
+            //get DataHandler function from connection and execute it
             if (connection->GetDataHandler()) {
+
+                //send the data outside for handling
                 connection->GetDataHandler()(buf, nread);
             }
         }
