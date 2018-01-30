@@ -9,12 +9,19 @@
 
 namespace sandstorm {
     namespace collector {
-        class TaskItem {
+
+        class OutputItem {
+
         public:
-            inline TaskItem(int32_t taskIndex, const base::Tuple &tuple);
+            inline OutputItem(int32_t taskIndex, const base::Tuple &tuple,
+                              const std::string &taskName);
 
             int32_t GetTaskIndex() const {
                 return _taskIndex;
+            }
+
+            sandstorm::base::Tuple &GetTuple() {
+                return _tuple;
             }
 
             const base::Tuple &GetTuple() const {
@@ -24,12 +31,12 @@ namespace sandstorm {
 
         private:
             int32_t _taskIndex;
-            base::Tuple _tuple;
+            sandstorm::base::Tuple _tuple;
         };
 
-        class TaskQueue : public base::BlockingQueue<TaskItem *> {
+        class OutputQueue : public base::BlockingQueue<OutputItem *> {
         };
     }
 }
 
-#include "sandstorm/collector/TaskItem.tcc"
+#include "sandstorm/collector/OutputItem.tcc"
