@@ -7,28 +7,17 @@
 
 namespace sandstorm {
     namespace base {
-        Variant Value::ToVariant() const {
-            if (_type == Type::Int8) {
-                return Variant(static_cast<int32_t>(ToInt8()));
-            } else if (_type == Type::Int16) {
-                return Variant(static_cast<int32_t>(ToInt16()));
-            } else if (_type == Type::Int32) {
-                return Variant(ToInt32());
-            } else if (_type == Type::String) {
-                return Variant(ToString());
-            }
-
-            return Variant();
+        void Tuple::Serialize(Variants &variants) const {
+            base::Variant::Serialize(variants, _sourceTask);
+            base::Variant::Serialize(variants, _destTask);
+            base::Variant::Serialize(variants, _values);
         }
 
-        Value Value::FromVariant(const Variant &variant) {
-            if (variant.GetType() == Variant::Type::Integer) {
-                return Value(variant.GetIntValue());
-            } else if (variant.GetType() == Variant::Type::String) {
-                return Value(variant.GetStringValue());
-            }
-
-            return Value();
+        void Tuple::Deserialize(Variants::const_iterator &it) {
+            base::Variant::Deserialize(it, _sourceTask);
+            base::Variant::Deserialize(it, _destTask);
+            base::Variant::Deserialize(it, _values);
         }
+
     }
 }
