@@ -23,8 +23,14 @@ namespace sandstorm {
                             std::shared_ptr<OutputQueue> queue);
 
             void SetQueue(std::shared_ptr<OutputQueue> queue) {
-
+                _queue = queue;
             }
+
+            std::shared_ptr<OutputQueue> GetQueue() const {
+                return _queue;
+            }
+
+            void Emit(const hurricane::base::Tuple &tuple);
 
         private:
 
