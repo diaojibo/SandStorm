@@ -1,26 +1,19 @@
 //
-// Created by Rocklct on 2017/12/24.
+// Created by rocklct on 2/18/18.
 //
 
 #pragma once
 
-#include "sandstorm/base/ITask.h"
+#include "sandstorm/task/ITask.h"
+#include "sandstorm/base/Values.h"
 
 namespace sandstorm {
-    namespace base {
-        class OutputCollector;
-    }
-
     namespace spout {
-        class ISpout : public base::ITask {
+        class ISpout : public sandstorm::task::ITask {
         public:
-            virtual void Open(base::OutputCollector &outputCollector) = 0;
+            virtual ISpout *Clone()=0;
 
-            virtual void Close() = 0;
-
-            virtual void Execute() = 0;
-
-            virtual ISpout *Clone() const = 0;
+            virtual void NextTuple()=0;
         };
     }
 }
