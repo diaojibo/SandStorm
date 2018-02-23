@@ -1,0 +1,8 @@
+//
+// Created by rocklct on 2/23/18.
+//
+
+#ifndef SANDSTORM_HELLOWORLDSPOUT_H
+#define SANDSTORM_HELLOWORLDSPOUT_H
+
+#endif //SANDSTORM_HELLOWORLDSPOUT_H
