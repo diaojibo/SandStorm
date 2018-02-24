@@ -40,7 +40,7 @@ void WordCountBolt::Execute(const sandstorm::base::Tuple &tuple) {
 
     wordCountIterator->second++;
 
-    std::cout << word << ' ' << wordCountIterator->second;
+    std::cout << word << ' ' << wordCountIterator->second << std::endl;
     _outputCollector->Emit({word, wordCountIterator->second});
 
     int64_t currentMicroseconds = 0;

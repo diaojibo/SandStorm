@@ -4,6 +4,9 @@
 
 #pragma once
 
+#define BEGIN_EXTERN_C extern "C" {
+#define END_EXTERN_C }
+
 namespace sandstorm {
     namespace topology {
         class Topology;
@@ -11,4 +14,8 @@ namespace sandstorm {
 
 }
 
-sandstorm::topology::Topology *GetTopology();
+//sandstorm::topology::Topology *GetTopology();
+
+BEGIN_EXTERN_C
+        sandstorm::topology::Topology* GetTopology();
+END_EXTERN_C

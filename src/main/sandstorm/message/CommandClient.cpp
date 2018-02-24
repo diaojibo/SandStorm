@@ -53,7 +53,7 @@ namespace sandstorm {
                 });
             }
             catch (const char *message) {
-                std::cout << message;
+                std::cout << message << std::endl;
             }
         }
 

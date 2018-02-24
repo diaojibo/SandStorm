@@ -33,10 +33,10 @@ void StartManager(const std::string &configFileName) {
     sandstorm::util::Configuration managerConfiguration;
     managerConfiguration.Parse(configFileName);
 
-    std::cout << managerConfiguration.GetProperty(sandstorm::CONF_KEY_PRESIDENT_HOST);
-    std::cout << managerConfiguration.GetIntegerProperty(sandstorm::CONF_KEY_PRESIDENT_PORT);
-    std::cout << managerConfiguration.GetProperty(sandstorm::CONF_KEY_MANAGER_HOST);
-    std::cout << managerConfiguration.GetIntegerProperty(sandstorm::CONF_KEY_MANAGER_PORT);
+    std::cout << managerConfiguration.GetProperty(sandstorm::CONF_KEY_PRESIDENT_HOST)<<std::endl;
+    std::cout << managerConfiguration.GetIntegerProperty(sandstorm::CONF_KEY_PRESIDENT_PORT)<<std::endl;
+    std::cout << managerConfiguration.GetProperty(sandstorm::CONF_KEY_MANAGER_HOST)<<std::endl;
+    std::cout << managerConfiguration.GetIntegerProperty(sandstorm::CONF_KEY_MANAGER_PORT)<<std::endl;
 
 
     signal(SIGINT, ProcessSignal);
@@ -44,12 +44,12 @@ void StartManager(const std::string &configFileName) {
     sandstorm::service::Manager manager(managerConfiguration);
     manager.JoinPresident([&manager](const sandstorm::message::Response &response) {
         if (response.GetStatus() != sandstorm::message::Response::Status::Successful) {
-            std::cout << "Can't join president.";
-            std::cout << "Exit with failure.";
+            std::cout << "Can't join president."<<std::endl;
+            std::cout << "Exit with failure."<<std::endl;
 
             exit(EXIT_FAILURE);
         } else {
-            std::cout << "Join successfully";
+            std::cout << "Join successfully"<<std::endl;
         }
 
         manager.StartListen();
@@ -58,7 +58,7 @@ void StartManager(const std::string &configFileName) {
 
 
 static void ProcessSignal(int signalNumber) {
-    std::cout << "Receive signal number: " << signalNumber;
-    std::cout << "Exit";
+    std::cout << "Receive signal number: " << signalNumber<<std::endl;
+    std::cout << "Exit"<<std::endl;
     exit(0);
 }

@@ -42,7 +42,7 @@ namespace sandstorm {
             _configuration.reset(new sandstorm::util::Configuration(configuration));
 
 
-            std::cout << "Need managers: " << _managerCount;
+            std::cout << "Need managers: " << _managerCount << std::endl;
         }
 
         void President::OnConnect(ManagerContext *context) {
@@ -54,22 +54,22 @@ namespace sandstorm {
             std::string managerHost = command.GetArgument(1).GetStringValue();
             int32_t managerPort = command.GetArgument(2).GetInt32Value();
 
-            std::cout << "Join node: " << joinerType;
+            std::cout << "Join node: " << joinerType << std::endl;
 
             ManagerContext managerContext;
             base::Variants::const_iterator currentIterator = command.GetArguments().cbegin() + 3;
             managerContext.Deserialize(currentIterator);
 
-            std::cout << "Manager name: " << managerContext.GetId();
-            std::cout << "Host: " << managerHost;
-            std::cout << "Port: " << managerPort;
-            std::cout << "Spout count: " << managerContext.GetSpoutCount();
-            std::cout << "Bolt count: " << managerContext.GetBoltCount();
-            std::cout << "Task info count: " << managerContext.GetTaskInfos().size();
-            std::cout << "Free spout count: " << managerContext.GetFreeSpouts().size();
-            std::cout << "Free bolt count: " << managerContext.GetFreeBolts().size();
-            std::cout << "Busy spout count: " << managerContext.GetBusySpouts().size();
-            std::cout << "Busy bolt count: " << managerContext.GetBusyBolts().size();
+            std::cout << "Manager name: " << managerContext.GetId() << std::endl;
+            std::cout << "Host: " << managerHost << std::endl;
+            std::cout << "Port: " << managerPort << std::endl;
+            std::cout << "Spout count: " << managerContext.GetSpoutCount() << std::endl;
+            std::cout << "Bolt count: " << managerContext.GetBoltCount() << std::endl;
+            std::cout << "Task info count: " << managerContext.GetTaskInfos().size() << std::endl;
+            std::cout << "Free spout count: " << managerContext.GetFreeSpouts().size() << std::endl;
+            std::cout << "Free bolt count: " << managerContext.GetFreeBolts().size() << std::endl;
+            std::cout << "Busy spout count: " << managerContext.GetBusySpouts().size() << std::endl;
+            std::cout << "Busy bolt count: " << managerContext.GetBusyBolts().size() << std::endl;
 
             managerContext.SetNetAddress(sandstorm::base::NetAddress(
                     managerHost, managerPort));
@@ -160,8 +160,8 @@ namespace sandstorm {
             std::list<sandstorm::task::TaskInfo> originSpoutTasks;
             for (const auto &spoutPair : spoutDeclarers) {
                 sandstorm::spout::SpoutDeclarer spoutDeclarer = spoutPair.second;
-                std::cout << "Spout " << spoutDeclarer.GetTaskName();
-                std::cout << "ParallismHint: " << spoutDeclarer.GetParallismHint();
+                std::cout << "Spout " << spoutDeclarer.GetTaskName() << std::endl;
+                std::cout << "ParallismHint: " << spoutDeclarer.GetParallismHint() << std::endl;
 
                 int32_t parallismHint = spoutDeclarer.GetParallismHint();
                 for (int32_t taskIndex = 0; taskIndex != parallismHint; ++taskIndex) {
@@ -224,9 +224,9 @@ namespace sandstorm {
             std::list<sandstorm::task::TaskInfo> originBoltTasks;
             for (const auto &boltPair : boltDeclarers) {
                 sandstorm::bolt::BoltDeclarer boltDeclarer = boltPair.second;
-                std::cout << "Bolt " << boltDeclarer.GetTaskName();
-                std::cout << "Source: " << boltDeclarer.GetSourceTaskName();
-                std::cout << "ParallismHint: " << boltDeclarer.GetParallismHint();
+                std::cout << "Bolt " << boltDeclarer.GetTaskName() << std::endl;
+                std::cout << "Source: " << boltDeclarer.GetSourceTaskName() << std::endl;
+                std::cout << "ParallismHint: " << boltDeclarer.GetParallismHint() << std::endl;
 
                 int32_t parallismHint = boltDeclarer.GetParallismHint();
                 for (int32_t taskIndex = 0; taskIndex != parallismHint; ++taskIndex) {
@@ -318,22 +318,22 @@ namespace sandstorm {
                     continue;
                 }
 
-                std::cout << "    Manager: " << taskInfo.GetManagerContext()->GetId();
-                std::cout << "    Exectuor index: " << taskInfo.GetExecutorIndex();
-                std::cout << "    Paths: ";
+                std::cout << "    Manager: " << taskInfo.GetManagerContext()->GetId() << std::endl;
+                std::cout << "    Exectuor index: " << taskInfo.GetExecutorIndex() << std::endl;
+                std::cout << "    Paths: " << std::endl;
                 const std::list<sandstorm::task::PathInfo> &paths = taskInfo.GetPaths();
 
                 for (const sandstorm::task::PathInfo &path : paths) {
-                    std::cout << "      Path: ";
+                    std::cout << "      Path: " << std::endl;
                     int32_t groupMethod = path.GetGroupMethod();
-                    std::cout << "        Group method: " << groupMethod;
+                    std::cout << "        Group method: " << groupMethod << std::endl;
                     if (path.GetGroupMethod() == sandstorm::task::PathInfo::GroupMethod::Global) {
                         std::cout << "        Destination host: " <<
-                                  path.GetDestinationExecutors()[0].GetManager().GetHost();
+                                  path.GetDestinationExecutors()[0].GetManager().GetHost() << std::endl;
                         std::cout << "        Destination port: " <<
-                                  path.GetDestinationExecutors()[0].GetManager().GetPort();
+                                  path.GetDestinationExecutors()[0].GetManager().GetPort() << std::endl;
                         std::cout << "        Destination executor index: " <<
-                                  path.GetDestinationExecutors()[0].GetExecutorIndex();
+                                  path.GetDestinationExecutors()[0].GetExecutorIndex() << std::endl;
                     }
                 }
             }
@@ -342,7 +342,7 @@ namespace sandstorm {
         void President::SyncWithManagers() {
             for (ManagerContext &managerContext : _managers) {
                 std::string managerId = managerContext.GetId();
-                std::cout << "Sync meta data with supervisr: " << managerId;
+                std::cout << "Sync meta data with supervisr: " << managerId << std::endl;
                 std::shared_ptr<sandstorm::message::CommandClient> managerClient =
                         _managerClients[managerId];
 
@@ -361,15 +361,17 @@ namespace sandstorm {
                                                [managerId, this](const sandstorm::message::Response &response,
                                                                  const message::CommandError &error) -> void {
                                                    if (error.GetType() != message::CommandError::Type::NoError) {
-                                                       std::cout << error.what();
+                                                       std::cout << error.what() << std::endl;
                                                        return;
                                                    }
 
                                                    if (response.GetStatus() ==
                                                        sandstorm::message::Response::Status::Successful) {
-                                                       std::cout << "Sync with " << managerId << " successfully.";
+                                                       std::cout << "Sync with " << managerId << " successfully."
+                                                                 << std::endl;
                                                    } else {
-                                                       std::cout << "Sync with " << managerId << " failed.";
+                                                       std::cout << "Sync with " << managerId << " failed."
+                                                                 << std::endl;
                                                    }
                                                });
                 });
@@ -385,20 +387,20 @@ namespace sandstorm {
                 std::this_thread::sleep_for(std::chrono::seconds(10));
 
                 for (ManagerContext &managerContext : _managers) {
-                    std::cout << "Check " << managerContext.GetId();
+                    std::cout << "Check " << managerContext.GetId() << std::endl;
                     SendHeartbeat(managerContext.GetId(), 0);
                 }
             }
         }
 
         void President::ShowManagerTaskInfos() {
-            std::cout << "================ Allocate result ================";
+            std::cout << "================ Allocate result ================" << std::endl;
             for (ManagerContext &managerContext : _managers) {
-                std::cout << managerContext.GetId();
-                std::cout << "  Host: " << managerContext.GetNetAddress().GetHost();
-                std::cout << "  Port: " << managerContext.GetNetAddress().GetPort();
+                std::cout << managerContext.GetId() << std::endl;
+                std::cout << "  Host: " << managerContext.GetNetAddress().GetHost() << std::endl;
+                std::cout << "  Port: " << managerContext.GetNetAddress().GetPort() << std::endl;
 
-                std::cout << "  Tasks: ";
+                std::cout << "  Tasks: " << std::endl;
                 const std::vector<sandstorm::task::TaskInfo> &taskInfos =
                         managerContext.GetTaskInfos();
                 ShowTaskInfos(taskInfos);
@@ -471,28 +473,28 @@ namespace sandstorm {
                         sourceTask->AddPath(pathInfo);
                     }
                 } else {
-                    std::cout << "Unsupported group method occured";
+                    std::cout << "Unsupported group method occured" << std::endl;
                     exit(EXIT_FAILURE);
                 }
             }
         }
 
         void President::ShowManagerMetadata() {
-            std::cout << "================ Manager metadata ================";
+            std::cout << "================ Manager metadata ================" << std::endl;
             for (ManagerContext &managerContext : _managers) {
-                std::cout << "Manager name: " << managerContext.GetId();
-                std::cout << "  Spout count: " << managerContext.GetSpoutCount();
-                std::cout << "  Bolt count: " << managerContext.GetBoltCount();
-                std::cout << "  Task info count: " << managerContext.GetTaskInfos().size();
-                std::cout << "  Free spout count: " << managerContext.GetFreeSpouts().size();
-                std::cout << "  Free bolt count: " << managerContext.GetFreeBolts().size();
-                std::cout << "  Busy spout count: " << managerContext.GetBusySpouts().size();
-                std::cout << "  Busy bolt count: " << managerContext.GetBusyBolts().size();
+                std::cout << "Manager name: " << managerContext.GetId() << std::endl;
+                std::cout << "  Spout count: " << managerContext.GetSpoutCount() << std::endl;
+                std::cout << "  Bolt count: " << managerContext.GetBoltCount() << std::endl;
+                std::cout << "  Task info count: " << managerContext.GetTaskInfos().size() << std::endl;
+                std::cout << "  Free spout count: " << managerContext.GetFreeSpouts().size() << std::endl;
+                std::cout << "  Free bolt count: " << managerContext.GetFreeBolts().size() << std::endl;
+                std::cout << "  Busy spout count: " << managerContext.GetBusySpouts().size() << std::endl;
+                std::cout << "  Busy bolt count: " << managerContext.GetBusyBolts().size() << std::endl;
             }
         }
 
         void President::SubmitTopology(sandstorm::topology::Topology *topology) {
-            std::cout << "Submit topology: " << topology->GetName();
+            std::cout << "Submit topology: " << topology->GetName() << std::endl;
 
             _orderIds[topology->GetName()] = 0;
 
@@ -521,7 +523,7 @@ namespace sandstorm {
         }
 
         void President::SendHeartbeat(const std::string managerId, int32_t sendTimes) {
-            std::cout << "Sending heartbeat to " << managerId;
+            std::cout << "Sending heartbeat to " << managerId << std::endl;
 
             std::shared_ptr<sandstorm::message::CommandClient> commandClient =
                     _managerClients.at(managerId);
@@ -529,13 +531,13 @@ namespace sandstorm {
             commandClient->GetConnector()->Connect([commandClient, managerId, sendTimes, this]
                                                            (const util::SocketError &error) {
                 if (error.GetType() != util::SocketError::Type::NoError) {
-                    std::cout << "Sendtimes: " << sendTimes;
+                    std::cout << "Sendtimes: " << sendTimes << std::endl;
                     if (sendTimes >= MAX_HEARTBEAT_FAILED_TIMES) {
                         if (!_submitted) {
                             return;
                         }
 
-                        std::cout << "Lost connection from " << managerId;
+                        std::cout << "Lost connection from " << managerId << std::endl;
                         return;
                     }
 
@@ -545,7 +547,7 @@ namespace sandstorm {
                     return;
                 }
 
-                std::cout << "Connected to " << managerId;
+                std::cout << "Connected to " << managerId << std::endl;
                 sandstorm::message::Command command(sandstorm::message::Command::Type::Heartbeat);
 
                 commandClient->SendCommand(command,
@@ -553,20 +555,20 @@ namespace sandstorm {
                                                    const sandstorm::message::Response &response,
                                                    const message::CommandError &error) {
                                                if (error.GetType() != message::CommandError::Type::NoError) {
-                                                   std::cout << error.what();
+                                                   std::cout << error.what() << std::endl;
                                                }
 
                                                if (response.GetStatus() ==
                                                    sandstorm::message::Response::Status::Successful) {
-                                                   std::cout << managerId << " alived.";
+                                                   std::cout << managerId << " alived." << std::endl;
                                                } else {
-                                                   std::cout << "Sendtimes: " << sendTimes;
+                                                   std::cout << "Sendtimes: " << sendTimes << std::endl;
                                                    if (sendTimes >= MAX_HEARTBEAT_FAILED_TIMES) {
                                                        if (!_submitted) {
                                                            return;
                                                        }
 
-                                                       std::cout << "Lost connection from " << managerId;
+                                                       std::cout << "Lost connection from " << managerId << std::endl;
                                                        return;
                                                    }
 

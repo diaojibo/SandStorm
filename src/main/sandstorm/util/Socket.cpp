@@ -33,7 +33,7 @@ namespace sandstorm {
                 callback(sentSize, SocketError());
             }
             catch (const SocketError &e) {
-                std::cout << e.what();
+                std::cout << e.what() << std::endl;
                 callback(0, e);
             }
         }
@@ -111,7 +111,7 @@ namespace sandstorm {
 
 
             std::cout << "Accepted client IP: " << inet_ntoa(clientAddress.sin_addr) << ",port:["
-                      << ntohs(clientAddress.sin_port) << "]";
+                      << ntohs(clientAddress.sin_port) << "]" << std::endl;
 
 
             return new TcpConnection(clientSocket, clientAddress);

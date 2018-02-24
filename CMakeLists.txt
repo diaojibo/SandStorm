@@ -44,17 +44,20 @@ set(COMMON_OBJ ./src/main/sandstorm/base/ByteArray.cpp
         ./src/main/sandstorm/util/StringUtil.cpp)
 
 
-add_executable(Manager ./src/main/sandstorm/tool/StartManager.cpp ${COMMON_OBJ})
+add_executable(manager ./src/main/sandstorm/tool/StartManager.cpp ${COMMON_OBJ})
 
-add_executable(President ./src/main/sandstorm/tool/StartPresident.cpp ${COMMON_OBJ})
+add_executable(president ./src/main/sandstorm/tool/StartPresident.cpp ${COMMON_OBJ})
 
-add_library(WordCount SHARED ./src/main/sample/HelloWorld.cpp
+add_library(wordcount SHARED ./src/main/sample/HelloWorld.cpp
         ./src/main/sample/SplitSentenceBolt.cpp
         ./src/main/sample/WordCountBolt.cpp
         ./src/main/sample/WordCountTopology.cpp
+        ${COMMON_OBJ}
         )
 
-target_link_libraries(Manager ${CMAKE_THREAD_LIBS_INIT}
+target_link_libraries(manager ${CMAKE_THREAD_LIBS_INIT}
         ${CMAKE_DL_LIBS})
 
-target_link_libraries(President ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS})
+target_link_libraries(president ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS})
+
+target_link_libraries(wordcount ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS})

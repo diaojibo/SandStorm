@@ -164,7 +164,7 @@ namespace sandstorm {
                                               [callback](const sandstorm::message::Response &response,
                                                          const message::CommandError &error) {
                                                   if (error.GetType() != message::CommandError::Type::NoError) {
-                                                      std::cout<<error.what();
+                                                      std::cout << error.what() << std::endl;
                                                       return;
                                                   }
 

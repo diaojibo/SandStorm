@@ -128,7 +128,7 @@ namespace sandstorm {
                 commandClient->SendCommand(command, [callback](const sandstorm::message::Response &response,
                                                                const message::CommandError &error) {
                     if (error.GetType() != message::CommandError::Type::NoError) {
-                        std::cout << error.what();
+                        std::cout << error.what() << std::endl;
                         return;
                     }
 
@@ -244,7 +244,7 @@ namespace sandstorm {
         }
 
         void Manager::InitSpoutExecutors() {
-            std::cout << "DEBUG:Init spout executors";
+            std::cout << "DEBUG:Init spout executors" << std::endl;
             const std::map<std::string, sandstorm::spout::SpoutDeclarer> &spoutDeclarers =
                     _topology->GetSpoutDeclarers();
             std::set<int32_t> busySpouts = _selfContext->GetBusySpouts();
@@ -270,13 +270,13 @@ namespace sandstorm {
         }
 
         void Manager::InitBoltExecutors() {
-            std::cout << "DEBUG: Init bolt executors";
+            std::cout << "DEBUG: Init bolt executors" << std::endl;
             const std::map<std::string, sandstorm::bolt::BoltDeclarer> &boltDeclarers =
                     _topology->GetBoltDeclarers();
             std::set<int32_t> busyBolts = _selfContext->GetBusyBolts();
             int32_t spoutCount = _selfContext->GetSpoutCount();
             for (int32_t boltIndex : busyBolts) {
-                std::cout << boltIndex;
+                std::cout << boltIndex << std::endl;
 
 
                 sandstorm::task::TaskInfo &boltTask = _selfContext->GetBoltTaskInfo(boltIndex);
@@ -322,14 +322,14 @@ namespace sandstorm {
         }
 
         void Manager::ShowManagerMetadata() {
-            std::cout << "Manager name: " << _selfContext->GetId();
-            std::cout << "  Spout count: " << _selfContext->GetSpoutCount();
-            std::cout << "  Bolt count: " << _selfContext->GetBoltCount();
-            std::cout << "  Task info count: " << _selfContext->GetTaskInfos().size();
-            std::cout << "  Free spout count: " << _selfContext->GetFreeSpouts().size();
-            std::cout << "  Free bolt count: " << _selfContext->GetFreeBolts().size();
-            std::cout << "  Busy spout count: " << _selfContext->GetBusySpouts().size();
-            std::cout << "  Busy bolt count: " << _selfContext->GetBusyBolts().size();
+            std::cout << "Manager name: " << _selfContext->GetId() << std::endl;
+            std::cout << "  Spout count: " << _selfContext->GetSpoutCount() << std::endl;
+            std::cout << "  Bolt count: " << _selfContext->GetBoltCount() << std::endl;
+            std::cout << "  Task info count: " << _selfContext->GetTaskInfos().size() << std::endl;
+            std::cout << "  Free spout count: " << _selfContext->GetFreeSpouts().size() << std::endl;
+            std::cout << "  Free bolt count: " << _selfContext->GetFreeBolts().size() << std::endl;
+            std::cout << "  Busy spout count: " << _selfContext->GetBusySpouts().size() << std::endl;
+            std::cout << "  Busy bolt count: " << _selfContext->GetBusyBolts().size() << std::endl;
         }
 
         void Manager::ShowTaskInfos() {
@@ -339,24 +339,24 @@ namespace sandstorm {
                     continue;
                 }
 
-                std::cout << "    Manager: " << taskInfo.GetManagerContext()->GetId();
-                std::cout << "    Exectuor index: " << taskInfo.GetExecutorIndex();
-                std::cout << "    Task name: " << taskInfo.GetTaskName();
-                std::cout << "    Paths: ";
+                std::cout << "    Manager: " << taskInfo.GetManagerContext()->GetId() << std::endl;
+                std::cout << "    Exectuor index: " << taskInfo.GetExecutorIndex() << std::endl;
+                std::cout << "    Task name: " << taskInfo.GetTaskName() << std::endl;
+                std::cout << "    Paths: " << std::endl;
                 const std::list<sandstorm::task::PathInfo> &paths = taskInfo.GetPaths();
 
                 for (const sandstorm::task::PathInfo &path : paths) {
-                    std::cout << "      Path: ";
+                    std::cout << "      Path: " << std::endl;
                     int32_t groupMethod = path.GetGroupMethod();
-                    std::cout << "        Group method: " << groupMethod;
+                    std::cout << "        Group method: " << groupMethod << std::endl;
 
                     if (path.GetGroupMethod() == sandstorm::task::PathInfo::GroupMethod::Global) {
                         std::cout << "        Destination host: " <<
-                                  path.GetDestinationExecutors()[0].GetManager().GetHost();
+                                  path.GetDestinationExecutors()[0].GetManager().GetHost() << std::endl;
                         std::cout << "        Destination port: " <<
-                                  path.GetDestinationExecutors()[0].GetManager().GetPort();
+                                  path.GetDestinationExecutors()[0].GetManager().GetPort() << std::endl;
                         std::cout << "        Destination executor index: " <<
-                                  path.GetDestinationExecutors()[0].GetExecutorIndex();
+                                  path.GetDestinationExecutors()[0].GetExecutorIndex() << std::endl;
                     }
                 }
             }

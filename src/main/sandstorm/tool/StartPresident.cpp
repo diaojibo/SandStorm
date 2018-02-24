@@ -24,6 +24,8 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
+    std::cout << "start" << std::endl;
+
     StartPresident(argv[1]);
 
     return EXIT_SUCCESS;
@@ -42,7 +44,7 @@ void StartPresident(const std::string &configFileName) {
 
 
 static void ProcessSignal(int signalNumber) {
-    std::cout << "Receive signal number: " << signalNumber;
-    std::cout << "Exit";
+    std::cout << "Receive signal number: " << signalNumber << std::endl;
+    std::cout << "Exit" << std::endl;
     exit(0);
 }

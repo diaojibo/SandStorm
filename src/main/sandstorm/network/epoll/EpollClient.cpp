@@ -40,6 +40,7 @@ namespace sandstorm {
 
             if (epollLoop->AddEpollEvents(client->_events, clientSocket) == -1) {
                 perror("epoll_ctl:add");
+                std::cout << "epoll_ctl:add" << std::endl;
                 exit(EXIT_FAILURE);
             }
 
@@ -67,6 +68,7 @@ namespace sandstorm {
 
             if (EpollLoop::Get()->ModifyEpollEvents(_events | EPOLLOUT, clientSocket)) {
                 perror("FATAL epoll_ctl:mod failed");
+                std::cout << "FATAL epoll_ctl:mod failed" << std::endl;
             }
 
             const char *buf = byteArray.data();
@@ -79,6 +81,7 @@ namespace sandstorm {
                 if (nwrite < n) {
                     if (nwrite == -1 && errno != EAGAIN) {
                         perror("FATAL write data to peer failed!");
+                        std::cout << "FATAL write data to peer failed!" << std::endl;
                         break;
                     }
                 }

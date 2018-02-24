@@ -31,7 +31,7 @@ namespace sandstorm {
             dataPackage.Deserialize(data);
 
             if (!dataPackage.GetVariants().size()) {
-                std::cout << "Data package error";
+                std::cout << "Data package error" << std::endl;
             }
 
             _arguments = dataPackage.GetVariants();
@@ -72,7 +72,7 @@ namespace sandstorm {
             dataPackage.Deserialize(data);
 
             if (!dataPackage.GetVariants().size()) {
-                std::cout << "Data package error";
+                std::cout << "Data package error" << std::endl;
             }
 
             _arguments = dataPackage.GetVariants();
