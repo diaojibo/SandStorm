@@ -19,6 +19,8 @@ namespace sandstorm {
     namespace task {
         class ExecutorPosition : public sandstorm::base::Serializable {
 
+        public:
+
             ExecutorPosition();
 
             ExecutorPosition(const sandstorm::base::NetAddress &manager, int32_t executorIndex);
@@ -95,14 +97,14 @@ namespace sandstorm {
                 _destinationExecutors = executors;
             }
 
-            virtual void Serialize(hurricane::base::Variants &variants) const override;
+            virtual void Serialize(sandstorm::base::Variants &variants) const override;
 
-            virtual void Deserialize(hurricane::base::Variants::const_iterator &it) override;
+            virtual void Deserialize(sandstorm::base::Variants::const_iterator &it) override;
 
         private:
             int32_t _groupMethod;
             std::string _destinationTask;
-            std::string _filedName;
+            std::string _fieldName;
             std::vector<ExecutorPosition> _destinationExecutors;
         };
 
@@ -140,15 +142,15 @@ namespace sandstorm {
                 _paths.push_back(path);
             }
 
-            const hurricane::service::ManagerContext *GetManagerContext() const {
+            const sandstorm::service::ManagerContext *GetManagerContext() const {
                 return _managerContext;
             }
 
-            hurricane::service::ManagerContext *GetManagerContext() {
+            sandstorm::service::ManagerContext *GetManagerContext() {
                 return _managerContext;
             }
 
-            void SetManagerContext(hurricane::service::ManagerContext *context) {
+            void SetManagerContext(sandstorm::service::ManagerContext *context) {
                 _managerContext = context;
             }
 
@@ -160,9 +162,9 @@ namespace sandstorm {
                 _executorIndex = executorIndex;
             }
 
-            virtual void Serialize(hurricane::base::Variants &variants) const override;
+            virtual void Serialize(sandstorm::base::Variants &variants) const override;
 
-            virtual void Deserialize(hurricane::base::Variants::const_iterator &it) override;
+            virtual void Deserialize(sandstorm::base::Variants::const_iterator &it) override;
 
         private:
             std::string _topologyName;

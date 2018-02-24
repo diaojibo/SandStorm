@@ -52,6 +52,8 @@ namespace sandstorm {
             typedef std::function<void(const CommandError &)> ConnectCallback;
             typedef std::function<void(const Response &response, const CommandError &)> SendCommandCallback;
 
+        public:
+
             CommandClient(sandstorm::util::NetConnector *connector);
 
             ~CommandClient();

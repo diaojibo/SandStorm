@@ -19,7 +19,7 @@ namespace sandstorm {
             return htobe32(hostl);
         }
 
-        inline uint16_t ConverHostToNetworkShort(uint16_t hosts) {
+        inline uint16_t ConvertHostToNetworkShort(uint16_t hosts) {
             return htobe16(hosts);
         }
 

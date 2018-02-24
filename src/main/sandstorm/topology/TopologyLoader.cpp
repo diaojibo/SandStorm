@@ -18,10 +18,10 @@ namespace sandstorm {
 
         std::shared_ptr<Topology> TopologyLoader::GetTopology(const std::string &topologyName) {
             if (_libraryHandles.find(topologyName) == _libraryHandles.end()) {
-                LibraryHandle libraryHandle = sandstormLibraryLoad(topologyName);
+                LibraryHandle libraryHandle = SandstormLibraryLoad(topologyName);
                 _libraryHandles[topologyName] = libraryHandle;
                 TopologyGetter topologyGetter =
-                        sandstormLibraryGetSymbol<TopologyGetter>(libraryHandle, GET_TOPOLOGY_INTERFACE);
+                        SandstormLibraryGetSymbol<TopologyGetter>(libraryHandle, GET_TOPOLOGY_INTERFACE);
 
                 _topologies[topologyName].reset(topologyGetter());
             }

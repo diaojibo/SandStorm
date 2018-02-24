@@ -41,3 +41,5 @@ namespace sandstorm {
         };
     }
 }
+
+#include "sandstorm/base/NetAddress.tcc"

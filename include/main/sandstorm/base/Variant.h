@@ -19,14 +19,14 @@
     \
     CType Get##TypeName##Value() const { \
         if ( _type == Type::Invalid ) { \
-            LOG(LOG_ERROR) << "Invalid"; \
+            std::cout << "Invalid"; \
         } \
     \
         if ( _type == Type::TypeName ) { \
             return valueName; \
         } \
     \
-        LOG(LOG_ERROR) << "Type mismatched. " << \
+        std::cout << "Type mismatched. " << \
                  "Expected: " << TypeNames[Type::TypeName] << \
                  ". Actually: " << TypeNames[_type]; \
         throw "Type mismatched"; \

@@ -30,7 +30,7 @@ namespace sandstorm {
                 return _queue;
             }
 
-            void Emit(const hurricane::base::Tuple &tuple);
+            void Emit(const sandstorm::base::Tuple &tuple);
 
         private:
 

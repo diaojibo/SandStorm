@@ -21,7 +21,7 @@ namespace sandstorm {
         class NetListener {
 
         public:
-            NetListener(const sandstorm::base::NetAddress *host);
+            NetListener(const sandstorm::base::NetAddress& host);
 
             const sandstorm::base::NetAddress &GetHost() const {
                 return _host;

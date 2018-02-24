@@ -13,6 +13,9 @@
 namespace sandstorm {
     namespace network {
         class ByteArray : public std::vector<char> {
+
+        public:
+
             ByteArray() = default;
 
             ByteArray(size_t size) : std::vector<char>(size) {}

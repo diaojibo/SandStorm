@@ -3,7 +3,58 @@ project(SandStorm)
 
 set(CMAKE_CXX_STANDARD 11)
 
+find_package(Threads)
+
 
 include_directories(./include/main)
 
-add_executable(nimbus ./src/main/sandstorm/NimbusLauncher.cpp)
+set(COMMON_OBJ ./src/main/sandstorm/base/ByteArray.cpp
+        ./src/main/sandstorm/base/DataPackage.cpp
+        ./src/main/sandstorm/base/Library.cpp
+        ./src/main/sandstorm/base/Values.cpp
+        ./src/main/sandstorm/base/Variant.cpp
+        ./src/main/sandstorm/bolt/BoltDeclarer.cpp
+        ./src/main/sandstorm/collector/OutputCollector.cpp
+        ./src/main/sandstorm/collector/OutputDispatcher.cpp
+        ./src/main/sandstorm/message/Command.cpp
+        ./src/main/sandstorm/message/CommandClient.cpp
+        ./src/main/sandstorm/message/CommandServer.cpp
+        ./src/main/sandstorm/network/epoll/EpollClient.cpp
+        ./src/main/sandstorm/network/epoll/EpollLoop.cpp
+        ./src/main/sandstorm/network/epoll/EpollServer.cpp
+        ./src/main/sandstorm/network/epoll/EpollStream.cpp
+        ./src/main/sandstorm/network/utils/CommonUtils.cpp
+        ./src/main/sandstorm/network/EventQueueLoop.cpp
+        ./src/main/sandstorm/service/Manager.cpp
+        ./src/main/sandstorm/service/ManagerContext.cpp
+        ./src/main/sandstorm/service/President.cpp
+        ./src/main/sandstorm/spout/SpoutDeclarer.cpp
+        ./src/main/sandstorm/task/BoltExecutor.cpp
+        ./src/main/sandstorm/task/Executor.cpp
+        ./src/main/sandstorm/task/PathInfo.cpp
+        ./src/main/sandstorm/task/SpoutExecutor.cpp
+        ./src/main/sandstorm/task/TaskDeclarer.cpp
+        ./src/main/sandstorm/task/TaskInfo.cpp
+        ./src/main/sandstorm/topology/Topology.cpp
+        ./src/main/sandstorm/topology/TopologyLoader.cpp
+        ./src/main/sandstorm/util/Configuration.cpp
+        ./src/main/sandstorm/util/NetConnector.cpp
+        ./src/main/sandstorm/util/NetListener.cpp
+        ./src/main/sandstorm/util/Socket.cpp
+        ./src/main/sandstorm/util/StringUtil.cpp)
+
+
+add_executable(Manager ./src/main/sandstorm/tool/StartManager.cpp ${COMMON_OBJ})
+
+add_executable(President ./src/main/sandstorm/tool/StartPresident.cpp ${COMMON_OBJ})
+
+add_library(WordCount SHARED ./src/main/sample/HelloWorld.cpp
+        ./src/main/sample/SplitSentenceBolt.cpp
+        ./src/main/sample/WordCountBolt.cpp
+        ./src/main/sample/WordCountTopology.cpp
+        )
+
+target_link_libraries(Manager ${CMAKE_THREAD_LIBS_INIT}
+        ${CMAKE_DL_LIBS})
+
+target_link_libraries(President ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS})

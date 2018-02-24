@@ -4,7 +4,7 @@
 
 #pragma once
 
-namespace hurricane {
+namespace sandstorm {
     namespace collector {
 
         TaskItem::TaskItem(int32_t taskIndex, const base::Tuple &tuple) :

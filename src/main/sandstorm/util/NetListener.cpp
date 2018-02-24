@@ -20,12 +20,12 @@ namespace sandstorm {
             _server = std::make_shared<TcpServer>();
 
             _server->Listen(_host.GetHost(), _host.GetPort());
-            LOG(LOG_INFO) << "Listen on " << _host.GetHost() << ":" << _host.GetPort();
+            std::cout << "Listen on " << _host.GetHost() << ":" << _host.GetPort();
 
             while (true) {
                 std::shared_ptr<TcpConnection> connection = std::shared_ptr<TcpConnection>(_server->Accept());
 
-                LOG(LOG_ERROR) << "A client is connected";
+                std::cout << "A client is connected";
 
                 std::thread dataThread(std::bind(&NetListener::DataThreadMain, this, std::placeholders::_1),
                                        connection);
@@ -49,7 +49,7 @@ namespace sandstorm {
                 }
             }
             catch (const std::exception &e) {
-                LOG(LOG_ERROR) << e.what();
+                std::cout << e.what();
             }
         }
 

@@ -26,14 +26,10 @@ inline LibraryHandle SandstormLibraryLoad(const std::string& name) {
 #define HurricaneGetLibraryError() dlerror()
 
 
-#ifdef __cplusplus
-#include <string>
-
 template <class Function>
-Function HurricaneLibraryGetSymbol(LibraryHandle libraryHandle, const std::string& libraryName) {
+Function SandstormLibraryGetSymbol(LibraryHandle libraryHandle, const std::string& libraryName) {
     return reinterpret_cast<Function>(dlsym(libraryHandle, libraryName.c_str()));
 }
 
 std::string GetLibraryPath();
 
-#endif // __cplusplus

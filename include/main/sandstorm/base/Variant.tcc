@@ -16,7 +16,7 @@ namespace sandstorm {
         }
 
         template<class Element>
-        void Variant::Deserialize(Variants::const_iterator &it, std::vector <Element> &values) {
+        void Variant::Deserialize(Variants::const_iterator &it, std::vector<Element> &values) {
             size_t size = 0;
 
             //get the size of the Variants
@@ -29,7 +29,7 @@ namespace sandstorm {
         }
 
         template<class Element>
-        void Variant::Deserialize(Variants::const_iterator &it, std::list <Element> &values) {
+        void Variant::Deserialize(Variants::const_iterator &it, std::list<Element> &values) {
             size_t size = 0;
             Deserialize(it, size);
 
@@ -40,7 +40,7 @@ namespace sandstorm {
         }
 
         template<class Element>
-        void Variant::Deserialize(Variants::const_iterator &it, std::set <Element> &values) {
+        void Variant::Deserialize(Variants::const_iterator &it, std::set<Element> &values) {
             size_t size = 0;
             Deserialize(it, size);
 
@@ -54,7 +54,7 @@ namespace sandstorm {
         }
 
         template<class Key, class Element>
-        void Variant::Deserialize(Variants::const_iterator &it, std::map <Key, Element> &values) {
+        void Variant::Deserialize(Variants::const_iterator &it, std::map<Key, Element> &values) {
             size_t size = 0;
             Deserialize(it, size);
 
@@ -74,7 +74,7 @@ namespace sandstorm {
         }
 
         template<class Element>
-        void Variant::Serialize(Variants &variants, std::vector <Element> values) {
+        void Variant::Serialize(Variants &variants, std::vector<Element> values) {
             variants.push_back(Variant(values.size()));
             for (const Element &value : values) {
                 Serialize(variants, value);
@@ -82,7 +82,7 @@ namespace sandstorm {
         }
 
         template<class Element>
-        void Variant::Serialize(Variants &variants, std::list <Element> values) {
+        void Variant::Serialize(Variants &variants, std::list<Element> values) {
             variants.push_back(Variant(values.size()));
             for (const Element &value : values) {
                 Serialize(variants, value);
@@ -90,7 +90,7 @@ namespace sandstorm {
         }
 
         template<class Element>
-        void Variant::Serialize(Variants &variants, std::set <Element> values) {
+        void Variant::Serialize(Variants &variants, std::set<Element> values) {
             variants.push_back(Variant(values.size()));
             for (const Element &value : values) {
                 Serialize(variants, value);
@@ -98,9 +98,9 @@ namespace sandstorm {
         }
 
         template<class Key, class Element>
-        void Variant::Serialize(Variants &variants, std::map <Key, Element> values) {
+        void Variant::Serialize(Variants &variants, std::map<Key, Element> values) {
             variants.push_back(Variant(values.size()));
-            for (const std::pair <Key, Element> &value : values) {
+            for (const std::pair<Key, Element> &value : values) {
                 Serialize(variants, value.first);
                 Serialize(variants, value.second);
             }

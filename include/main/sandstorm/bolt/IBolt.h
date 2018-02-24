@@ -7,7 +7,7 @@
 #include "sandstorm/task/ITask.h"
 #include "sandstorm/base/Values.h"
 
-namespace SandStorm {
+namespace sandstorm {
     namespace base {
         class OutputCollector;
 

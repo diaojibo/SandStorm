@@ -9,7 +9,7 @@ namespace sandstorm {
     namespace bolt {
         BoltDeclarer::BoltDeclarer(const std::string &boltName, IBolt *bolt) :
                 _bolt(bolt) {
-            SetType(hurricane::task::TaskDeclarer::Type::Bolt);
+            SetType(sandstorm::task::TaskDeclarer::Type::Bolt);
             SetTaskName(boltName);
 
             _fields = _bolt->DeclareFields();

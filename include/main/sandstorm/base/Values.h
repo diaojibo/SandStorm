@@ -107,3 +107,5 @@ namespace sandstorm {
         };
     }
 }
+
+#include "sandstorm/base/Values.tcc"

@@ -218,16 +218,6 @@ namespace sandstorm {
                 {Variant::Type::String,  6}
         };
 
-        std::map<Variant::Type, int8_t> Variant::TypeCodes = {
-                {Variant::Type::Int32,   0},
-                {Variant::Type::Int64,   1},
-                {Variant::Type::UInt32,  2},
-                {Variant::Type::UInt64,  3},
-                {Variant::Type::Boolean, 4},
-                {Variant::Type::Float,   5},
-                {Variant::Type::String,  6}
-        };
-
         std::map<Variant::Type, std::string> Variant::TypeNames = {
                 {Variant::Type::Invalid, "Invalid"},
                 {Variant::Type::Int32,   "Int32"},

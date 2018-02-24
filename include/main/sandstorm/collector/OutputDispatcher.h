@@ -60,11 +60,11 @@ namespace sandstorm {
                 _selfSpoutCount = selfSpoutCount;
             }
 
-            void SetSelfTasks(std::vector<std::shared_ptr<hurricane::collector::TaskQueue>> selfTasks) {
+            void SetSelfTasks(std::vector<std::shared_ptr<sandstorm::collector::TaskQueue>> selfTasks) {
                 _selfTasks = selfTasks;
             }
 
-            void SetTaskInfos(const std::vector<hurricane::task::TaskInfo> &taskInfos);
+            void SetTaskInfos(const std::vector<sandstorm::task::TaskInfo> &taskInfos);
 
             void SetPresidentClient(message::CommandClient *presidentClient);
 
@@ -103,7 +103,7 @@ namespace sandstorm {
 
             std::map<std::string, sandstorm::message::CommandClient *> _commandClients;
 
-            std::map<TaskPathName, std::map<std::string, sandstorm::task::ExecutorPosition>> _fieldsDestination;
+            std::map<TaskPathName, std::map<std::string, sandstorm::task::ExecutorPosition>> _fieldsDestinations;
 
             std::map<std::string, const std::vector<std::string> *> _taskFields;
 

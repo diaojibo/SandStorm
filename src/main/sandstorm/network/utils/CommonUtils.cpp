@@ -9,7 +9,7 @@
 
 namespace sandstorm {
     namespace network {
-        int32_t sandstorm::network::SetNonBlocking(int32_t sockfd) {
+        int32_t SetNonBlocking(int32_t sockfd) {
             int32_t opts;
 
             opts = fcntl(sockfd, F_GETFL);
