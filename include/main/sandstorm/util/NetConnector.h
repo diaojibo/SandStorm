@@ -6,6 +6,7 @@
 
 #include "sandstorm/util/Socket.h"
 #include "sandstorm/base/NetAddress.h"
+#include "sandstorm/network/Network.h"
 
 #include <cstdint>
 #include <functional>
@@ -43,7 +44,7 @@ namespace sandstorm {
 
         private:
             sandstorm::base::NetAddress _host;
-            std::shared_ptr<TcpClient> _client;
+            std::shared_ptr<sandstorm::network::TcpClient> _client;
         };
     }
 }

@@ -5,23 +5,27 @@
 #pragma once
 
 #include "sandstorm/util/Socket.h"
+
+#include "sandstorm/network/Network.h"
+
 #include "sandstorm/base/NetAddress.h"
 #include <functional>
 #include <memory>
 
 namespace sandstorm {
     namespace util {
-        typedef std::function<void(std::shared_ptr<TcpConnection> connection)>
+        typedef std::function<void(std::shared_ptr<sandstorm::network::EpollConnection> connection)>
                 ConnectionCallback;
 
-        typedef std::function<void(std::shared_ptr<TcpConnection> connection,
+
+        typedef std::function<void(std::shared_ptr<sandstorm::network::TcpConnection> connection,
                                    const char *buffer, int32_t size)> DataReceiver;
 
 
         class NetListener {
 
         public:
-            NetListener(const sandstorm::base::NetAddress& host);
+            NetListener(const sandstorm::base::NetAddress &host);
 
             const sandstorm::base::NetAddress &GetHost() const {
                 return _host;
@@ -33,15 +37,18 @@ namespace sandstorm {
 
             void StartListen();
 
-            void DataThreadMain(std::shared_ptr<TcpConnection> connection);
+            void OnData(DataReceiver receiver) {
+                _receiver = receiver;
+            }
 
             void OnConnection(ConnectionCallback callback);
 
 
         private:
             sandstorm::base::NetAddress _host;
-            std::shared_ptr<TcpServer> _server;
+            sandstorm::network::TcpServer _server;
             ConnectionCallback _connectionCallback;
+            DataReceiver _receiver;
         };
     }
 }

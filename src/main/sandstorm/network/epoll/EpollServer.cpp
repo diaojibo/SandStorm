@@ -109,7 +109,7 @@ namespace sandstorm {
 
             if (conn_sock == -1) {
                 if (errno != EAGAIN && errno != ECONNABORTED && errno != EPROTO && errno != EINTR) {
-                    perror("accept");
+                    perror("accept fail");
                 }
             }
 

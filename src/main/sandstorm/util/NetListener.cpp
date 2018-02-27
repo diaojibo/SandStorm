@@ -17,44 +17,21 @@ namespace sandstorm {
         }
 
         void NetListener::StartListen() {
-            _server = std::make_shared<TcpServer>();
 
-            _server->Listen(_host.GetHost(), _host.GetPort());
+            sandstorm::network::EpollLoop::Get()->Start();
+
+            _server.Listen(_host.GetHost(), _host.GetPort());
+
             std::cout << "Listen on " << _host.GetHost() << ":" << _host.GetPort() << std::endl;
 
-            while (true) {
-                std::shared_ptr<TcpConnection> connection = std::shared_ptr<TcpConnection>(_server->Accept());
-
-                std::cout << "A client is connected" << std::endl;
-
-                std::thread dataThread(std::bind(&NetListener::DataThreadMain, this, std::placeholders::_1),
-                                       connection);
-                dataThread.detach();
-            }
-        }
-
-        void NetListener::DataThreadMain(std::shared_ptr<TcpConnection> connection) {
-            int32_t _lostTime = 0;
-
-            _connectionCallback(connection);
-
-            try {
-                char buffer[DATA_BUFFER_SIZE];
-                while (true) {
-                    bool successful = connection->ReceiveAsync(buffer, DATA_BUFFER_SIZE);
-
-                    if (!successful) {
-                        break;
-                    }
-                }
-            }
-            catch (const std::exception &e) {
-                std::cout << e.what() << std::endl;
-            }
         }
 
         void NetListener::OnConnection(ConnectionCallback callback) {
             _connectionCallback = callback;
+            _server.OnConnect(callback);
+
         }
+
+
     }
 }

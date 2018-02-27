@@ -30,6 +30,8 @@ namespace sandstorm {
 
             if (EpollLoop::Get()->ModifyEpollEvents(_events | EPOLLOUT, clientSocket)) {
                 //Epoll fail
+
+                std::cout << "Epoll failed" << std::endl;
             }
 
             const char *buf = byteArray.data();

@@ -22,20 +22,17 @@ namespace sandstorm {
             std::map <int32_t, CommandHandler> &commandHandlers = _commandHandlers;
             ConnectHandler connectHandler = _connectHandler;
 
+
+            // pass all the command handlers into  ConnectionHandler
             _listener->OnConnection([this, connectHandler, commandHandlers](
-                    std::shared_ptr <sandstorm::util::TcpConnection> connection) {
+                    std::shared_ptr <sandstorm::network::TcpConnection> connection) {
                 CommandServerContext *context = new CommandServerContext;
-                sandstorm::util::TcpConnection *rawConnection = connection.get();
+                sandstorm::network::TcpConnection *rawConnection = connection.get();
 
                 _connectHandler(context);
 
                 connection->OnData([this, commandHandlers, context, rawConnection]
-                                           (const char *buffer, int32_t size,
-                                            const sandstorm::util::SocketError &error) {
-                    if (error.GetType() != sandstorm::util::SocketError::Type::NoError) {
-                        return;
-                    }
-
+                                           (const char *buffer, int32_t size) {
 
                     //translate Command BytesArray(Deserialize)
                     sandstorm::base::ByteArray commandBytes(buffer, size);
@@ -65,7 +62,7 @@ namespace sandstorm {
         }
 
         template<class CommandServerContext>
-        void CommandServer<CommandServerContext>::Response(sandstorm::util::TcpConnection *connection,
+        void CommandServer<CommandServerContext>::Response(sandstorm::network::TcpConnection *connection,
                                                            const sandstorm::message::Response &response) {
             sandstorm::base::ByteArray responseBytes = response.Serialize();
             connection->Send(responseBytes.data(), responseBytes.size());

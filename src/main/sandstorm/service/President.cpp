@@ -45,6 +45,8 @@ namespace sandstorm {
             std::cout << "Need managers: " << _managerCount << std::endl;
         }
 
+
+        // The function to be called after the connection
         void President::OnConnect(ManagerContext *context) {
         }
 

@@ -27,6 +27,7 @@ namespace sandstorm {
             return iSend;
         }
 
+
         void Socket::SendAsync(const char *buf, size_t size, SendCallback callback) {
             try {
                 int32_t sentSize = Send(buf, size);
@@ -70,10 +71,16 @@ namespace sandstorm {
             _receiveCallback = callback;
         }
 
+
+        /* TcpConnection */
+
         TcpConnection::TcpConnection(SOCKET socket, sockaddr_in clientAddress) :
                 _clientAddress(clientAddress) {
             _socket = socket;
         }
+
+
+        /* Tcp Server */
 
         TcpServer::TcpServer() {
             _socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -116,6 +123,10 @@ namespace sandstorm {
 
             return new TcpConnection(clientSocket, clientAddress);
         }
+
+
+        /* TcpClient */
+
 
         TcpClient::TcpClient() {
             _socket = socket(AF_INET, SOCK_STREAM, 0);

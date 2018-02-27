@@ -17,7 +17,7 @@ namespace sandstorm {
             return &epollLoop;
         }
 
-        EpollLoop::EpollLoop() {
+        EpollLoop::EpollLoop() : _shutdown(false) {
 
 
             // block SIGPIPE signal
@@ -100,6 +100,11 @@ namespace sandstorm {
                 //The event is from a server listen
                 if (_servers.find(fd) != _servers.end()) {
                     _Accept(eventfd, fd);
+                    continue;
+                }
+
+
+                if (_stream.find(fd) == _stream.end()) {
                     continue;
                 }
 

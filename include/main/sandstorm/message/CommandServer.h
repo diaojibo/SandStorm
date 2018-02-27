@@ -7,11 +7,11 @@
 #include "sandstorm/util/NetListener.h"
 #include "sandstorm/message/Command.h"
 #include "sandstorm/base/ByteArray.h"
+#include "sandstorm/network/Network.h"
+
 
 namespace sandstorm {
-    namespace util {
-        class TcpConnection;
-    }
+
 
     namespace message {
         class BaseCommandServerContext {
@@ -55,7 +55,7 @@ namespace sandstorm {
 
             void OnCommand(int32_t commandType, CommandHandler handler);
 
-            void Response(sandstorm::util::TcpConnection *connection, const Response &response);
+            void Response(sandstorm::network::TcpConnection *connection, const Response &response);
 
             void SetListener(sandstorm::util::NetListener *listener) {
                 _listener = listener;

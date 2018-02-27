@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+
 namespace sandstorm {
     namespace util {
         const int32_t RECEIVE_BUFFER_SIZE = 65535;
@@ -16,7 +17,7 @@ namespace sandstorm {
 
         void NetConnector::Connect() {
             if (!_client.get()) {
-                _client = std::make_shared<TcpClient>();
+                _client = std::make_shared<sandstorm::network::TcpClient>();
 
                 try {
                     _client->Connect(_host.GetHost(), _host.GetPort());

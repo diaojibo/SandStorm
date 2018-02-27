@@ -12,13 +12,17 @@ namespace sandstorm {
     namespace network {
         class EpollServer : public BasicServer<EpollConnectionPtr> {
         public:
+
+            typedef std::function<void(std::shared_ptr<sandstorm::network::EpollConnection> connection)>
+                    ConnectionCallback;
+
             EpollServer() {}
 
             virtual ~EpollServer() {}
 
             int32_t Listen(const std::string &host, int32_t port, int32_t backlog = 20) override;
 
-            void OnConnect(ConnectHandler handler) {
+            void OnConnect(ConnectionCallback handler) {
                 _connectHandler = handler;
             }
 
@@ -34,7 +38,7 @@ namespace sandstorm {
             DataSink *_dataSink;
 
             //Connect Function
-            ConnectHandler _connectHandler;
+            ConnectionCallback _connectHandler;
 
             //Disconnect Function
             DisconnectHandler _disconnectIndication;

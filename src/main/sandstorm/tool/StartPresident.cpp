@@ -17,6 +17,8 @@ using namespace std;
 
 void StartPresident(const std::string &configFileName);
 
+
+// process signal passed to the process
 static void ProcessSignal(int signalNumber);
 
 int main(int argc, char *argv[]) {
@@ -24,8 +26,10 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    std::cout << "start" << std::endl;
+    std::cout << "start President" << std::endl;
 
+
+    // argv[1] is configFileName
     StartPresident(argv[1]);
 
     return EXIT_SUCCESS;

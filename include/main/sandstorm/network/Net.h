@@ -70,8 +70,8 @@ namespace sandstorm {
         template<class ConnectionType>
         class BasicServer : public Socket {
         public:
-            typedef std::function<void(IStream *stream)> ConnectHandler;
-            typedef std::function<void(IStream *stream)> DisconnectHandler;
+            typedef std::function<void(std::shared_ptr<ConnectionType> connection)> ConnectHandler;
+            typedef std::function<void(std::shared_ptr<ConnectionType> connection)> DisconnectHandler;
 
             BasicServer() {}
 
