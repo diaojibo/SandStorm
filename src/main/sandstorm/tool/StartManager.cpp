@@ -42,6 +42,7 @@ void StartManager(const std::string &configFileName) {
     signal(SIGINT, ProcessSignal);
 
     sandstorm::service::Manager manager(managerConfiguration);
+
     manager.JoinPresident([&manager](const sandstorm::message::Response &response) {
         if (response.GetStatus() != sandstorm::message::Response::Status::Successful) {
             std::cout << "Can't join president."<<std::endl;

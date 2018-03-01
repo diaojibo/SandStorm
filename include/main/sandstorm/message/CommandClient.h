@@ -49,10 +49,10 @@ namespace sandstorm {
         };
 
         class CommandClient {
-            typedef std::function<void(const CommandError &)> ConnectCallback;
-            typedef std::function<void(const Response &response, const CommandError &)> SendCommandCallback;
 
         public:
+            typedef std::function<void(const CommandError &)> ConnectCallback;
+            typedef std::function<void(const Response &response, const CommandError &)> SendCommandCallback;
 
             CommandClient(sandstorm::util::NetConnector *connector);
 
@@ -72,6 +72,7 @@ namespace sandstorm {
 
         private:
             sandstorm::util::NetConnector *_connector;
+            SendCommandCallback _callback;
         };
     }
 }
