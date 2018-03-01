@@ -20,6 +20,7 @@ namespace sandstorm {
         public:
             typedef std::function<void(const SocketError &)> ConnectCallback;
             typedef std::function<void(char *resultBuffer, int32_t readSize, const SocketError &)> DataReceiver;
+            typedef std::function<void(char *resultBuffer, int32_t readSize)> DataHandler;
 
 
             NetConnector(const sandstorm::base::NetAddress &host);
@@ -38,7 +39,7 @@ namespace sandstorm {
 
             int32_t SendAndReceive(const char *buffer, int32_t size, char *resultBuffer, int32_t resultSize);
 
-            void SendAndReceive(const char *buffer, int32_t size, DataReceiver receiver);
+            //void SendAndReceive(const char *buffer, int32_t size, DataHandler receiver);
 
             void Close();
 

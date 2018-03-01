@@ -15,20 +15,6 @@ namespace sandstorm {
                 _host(host) {
         }
 
-        void NetConnector::Connect() {
-            if (!_client.get()) {
-                _client = std::make_shared<sandstorm::network::TcpClient>();
-
-                try {
-                    _client->Connect(_host.GetHost(), _host.GetPort());
-                }
-                catch (const SocketError &e) {
-                    _client.reset();
-                    throw e;
-                }
-            }
-        }
-
         void NetConnector::Connect(ConnectCallback callback) {
             try {
                 Connect();
@@ -39,30 +25,36 @@ namespace sandstorm {
             }
         }
 
+        void NetConnector::Connect() {
+            if (!_client.get()) {
+                _client = sandstorm::network::EpollClient::Connect(_host.GetHost(),
+                                                                   _host.GetPort(), nullptr);
+            }
+        }
+
+
         int32_t NetConnector::SendAndReceive(const char *buffer, int32_t size, char *resultBuffer, int32_t resultSize) {
-            _client->Send(buffer, size);
-            return _client->Receive(resultBuffer, resultSize);
-        }
 
-        void NetConnector::SendAndReceive(const char *buffer, int32_t size, DataReceiver receiver) {
-            _client->SendAsync(buffer, size, [this, receiver](int32_t sentSize, const SocketError &error) {
-                if (error.GetType() != SocketError::Type::NoError) {
-                    receiver(nullptr, 0, error);
-                    return;
+            _client->Send(sandstorm::network::ByteArray(buffer, size));
+
+            bool receiveData = false;
+            _client->OnData([&receiveData, &resultSize, &resultBuffer]
+                                    (const char *buf, int64_t size) {
+                if (resultSize > size) {
+                    resultSize = size;
                 }
 
-                char resultBuffer[RECEIVE_BUFFER_SIZE];
-                int32_t readSize = _client->Receive(resultBuffer, RECEIVE_BUFFER_SIZE);
-
-                if (!readSize) {
-                    receiver(resultBuffer, readSize,
-                             SocketError(SocketError::Type::RecvError, "Receive 0 bytes from client"));
-                    return;
-                }
-
-                receiver(resultBuffer, readSize, SocketError());
+                memcpy(resultBuffer, buf, resultSize);
+                receiveData = true;
             });
+
+            while (!receiveData) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(50));
+            }
+
+            return resultSize;
         }
+
 
         void NetConnector::Close() {
             _client.reset();

@@ -24,7 +24,7 @@ namespace sandstorm {
                     struct sockaddr *) &serv_addr, sizeof(serv_addr));
         }
 
-        EpollClientPtr EpollClient::Connect(const std::string &ip, int32_t port, DataSink *dataSink) {
+        static EpollClientPtr EpollClient::Connect(const std::string &ip, int32_t port, DataSink *dataSink) {
             int32_t clientSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
             //Connect
@@ -40,7 +40,7 @@ namespace sandstorm {
 
             if (epollLoop->AddEpollEvents(client->_events, clientSocket) == -1) {
                 perror("epoll_ctl:add");
-                std::cout << "epoll_ctl:add" << std::endl;
+                std::cout << "Error : epoll_ctl:add" << std::endl;
                 exit(EXIT_FAILURE);
             }
 

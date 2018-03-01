@@ -22,15 +22,7 @@ namespace sandstorm {
         }
 
         void CommandClient::Connect(CommandClient::ConnectCallback callback) {
-            this->_connector->Connect([callback](const util::SocketError &error) {
-                if (error.GetType() != util::SocketError::Type::NoError) {
-                    callback(CommandError(CommandError::Type::ConnectError,
-                                          error.what()));
-                    return;
-                }
-
-                callback(CommandError());
-            });
+            _connector->Connect();
         }
 
         void CommandClient::SendCommand(const Command &command, SendCommandCallback callback) {
