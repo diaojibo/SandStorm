@@ -1,6 +1,6 @@
 # SandStorm
 
-SandStorm是一个Linux下,简易的分布式实时处理系统。实现思路参考了Storm和Hurricane系统。
+SandStorm是一个Linux下,简易的分布式实时处理系统。实现思路参考了 **书本《分布式实时处理系统--原理，架构与实现》(作者卢誉声)**。
 
 ## 架构介绍
 
@@ -122,11 +122,9 @@ void SplitSentenceBolt::Execute(const sandstorm::base::Tuple &tuple) {
 ``` c++
 void WordCountBolt::Prepare(std::shared_ptr<sandstorm::collector::OutputCollector> outputCollector) {
     _outputCollector = outputCollector;
-    _logFile = new std::ofstream("timestamp" + itos(rand()) + ".txt");
 }
 
 void WordCountBolt::Cleanup() {
-    delete _logFile;
 }
 
 std::vector<std::string> WordCountBolt::DeclareFields() {
@@ -151,7 +149,6 @@ void WordCountBolt::Execute(const sandstorm::base::Tuple &tuple) {
 
     int64_t currentMicroseconds = 0;
 
-    *_logFile << sourceMicroseconds << ' ' << currentMicroseconds << std::endl;
 }
 ```
 
