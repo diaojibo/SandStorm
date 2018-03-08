@@ -27,7 +27,7 @@ SandStorm底层网络是基于Epoll异步事件通知模型实现的，可以应
 ## 系统使用
 
 ### 编译
-程序使用CMake进行构建，所以只需进入项目目录，执行
+程序使用CMake(version >=3.9)进行构建，所以只需进入项目目录，执行
 
 ```
 cmake
@@ -169,7 +169,7 @@ sandstorm::topology::Topology *GetTopology() {
             .ParallismHint(3);
 
     topology->SetBolt("word-count-bolt", new WordCountBolt)
-            .Field("split-sentence-bolt", "word")
+            .Random("split-sentence-bolt")
             .ParallismHint(2);
 
     return topology;
