@@ -110,7 +110,7 @@ namespace sandstorm {
                 }
 
                 if (events[i].events & EPOLLOUT) {
-
+					_Write(eventfd, fd, events[i].events);
                 }
 
 
@@ -126,6 +126,8 @@ namespace sandstorm {
                 _stream[connection->GetNativeSocket()] = connection;
             }
         }
+
+		void EpollLoop::_Write(int32_t eventfd, int32_t fd, uint32_t events){}
 
 
         //eventfd is fd created by epoll_create(_eventfd)
